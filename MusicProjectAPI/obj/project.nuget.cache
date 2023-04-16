@@ -1,10 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "flz5prGUBL7Q1Qf4RJSXivX+qp+7UjLJpF207hO7g3AGHzmjhHCH+V5v1hoAFPKQkqVA/Y+leYxIQXqKvJthJw==",
+  "dgSpecHash": "RGJsJoF9heFDNSlv1gGkurUgaqo2kvRv8i5NcjCh9lGKXzpZTOrOQFRHlIMIM2KQewzcuT05Sh2vA0Cmng4gyw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Georges\\source\\repos\\MusicProjectAPI\\MusicProjectAPI\\MusicProjectAPI.csproj",
+  "projectFilePath": "C:\\Users\\Georges\\source\\repos\\music-collaboration\\MusicProjectAPI\\MusicProjectAPI.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Georges\\.nuget\\packages\\mediatr\\12.0.1\\mediatr.12.0.1.nupkg.sha512",
+    "C:\\Users\\Georges\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",
     "C:\\Users\\Georges\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\Georges\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512",
     "C:\\Users\\Georges\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
     "C:\\Users\\Georges\\.nuget\\packages\\swashbuckle.aspnetcore\\5.6.3\\swashbuckle.aspnetcore.5.6.3.nupkg.sha512",
     "C:\\Users\\Georges\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\5.6.3\\swashbuckle.aspnetcore.swagger.5.6.3.nupkg.sha512",

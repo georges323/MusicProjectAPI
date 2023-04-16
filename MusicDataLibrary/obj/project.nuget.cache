@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "9rryEDWf4em2BIriOf6RSo1zWa3jTkSi+O1vzT6/6GNuwc3zwpMFrgmqMDpidITD+yi8aw3bpE6wqQDM2PXLzg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Georges\\source\\repos\\music-collaboration\\MusicDataLibrary\\MusicDataLibrary.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Georges\\.nuget\\packages\\mediatr\\12.0.1\\mediatr.12.0.1.nupkg.sha512",
+    "C:\\Users\\Georges\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",
+    "C:\\Users\\Georges\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
