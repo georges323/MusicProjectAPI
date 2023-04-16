@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using MusicDataLibrary.DataAccess;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,10 @@ namespace MusicProjectAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MusicProjectAPI", Version = "v1" });
             });
+            services.AddSingleton<IMusicDataAccess, MusicDataAccess>();
+
+            // This adds the entire assembly and not just the MusicDataAccess
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(MusicDataAccess).Assembly));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
