@@ -2,7 +2,7 @@
 
 namespace Domain.Entities;
 
-public class Project : BaseAuditableEntity
+public class Project : BaseEntity
 {
     public string? Name { get; set; }
     public int Bpm { get; set; }
