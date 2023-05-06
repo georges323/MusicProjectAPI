@@ -17,8 +17,24 @@ public class ProjectController : ControllerBase
 
     // GET: api/<ProjectController>
     [HttpGet]
-    public async Task<List<ProjectDto>> Get()
+    public async Task<IActionResult> Get()
     {
-        return await _mediator.Send(new GetProjectsQuery());
+        var result = await _mediator.Send(new GetProjectsQuery());
+
+        return Ok(result);
+    }
+
+    // GET: api/<ProjectController>
+    [HttpGet("{id}")]
+    public async Task<IActionResult> Get([FromRoute] Guid id)
+    {
+        var result = await _mediator.Send(new GetProjectQuery(id));
+
+        if (result == null)
+        {
+            return BadRequest("Project not found.");
+        }
+
+        return Ok(result);
     }
 }
