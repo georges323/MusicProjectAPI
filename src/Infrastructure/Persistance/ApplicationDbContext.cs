@@ -19,6 +19,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     }
 
     public DbSet<Project> Projects { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (!optionsBuilder.IsConfigured)
@@ -33,6 +34,14 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     }
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        builder.Entity<Project>().HasData(new Project
+        {
+            Id = Guid.NewGuid(),
+            Name = "Drowning",
+            Bpm = 155,
+            TimeSig = "4/4"
+        });
+
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
         base.OnModelCreating(builder);

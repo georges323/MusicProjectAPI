@@ -17,10 +17,15 @@ public class GetProjectsQueryHandler : IRequestHandler<GetProjectsQuery, List<Pr
 
     public async Task<List<ProjectDto>> Handle(GetProjectsQuery request, CancellationToken cancellationToken)
     {
-        // maybe get projects by user Id later?
-        var result = await _context.Projects.ToListAsync(cancellationToken);
+        var projectsResult = await _context.Projects.ToListAsync(cancellationToken);
 
-        throw new NotImplementedException();
+        return projectsResult.Select(pr => new ProjectDto
+        {
+            Id = pr.Id,
+            Name = pr.Name,
+            TimeSig = pr.TimeSig,
+            Bpm = pr.Bpm
+        }).ToList();
     }
 }
 
