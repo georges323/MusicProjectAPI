@@ -19,6 +19,8 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     }
 
     public DbSet<Project> Projects { get; set; }
+    public DbSet<Track> Tracks { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (!optionsBuilder.IsConfigured)
@@ -33,6 +35,8 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     }
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        builder.Seed();
+
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
         base.OnModelCreating(builder);
