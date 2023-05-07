@@ -7,4 +7,5 @@ public interface IApplicationDbContext
 {
     DbSet<Project> Projects { get; }
     DbSet<Track> Tracks { get; }
+    Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

@@ -1,11 +1,14 @@
-﻿using Application.Projects.Queries;
+﻿using Application.Projects.Commands;
+using Application.Projects.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebAPI.Filters;
 
 namespace WebAPI.Controllers;
 
 [Route("api/[controller]")]
+[ApiException]
 [ApiController]
 public class ProjectController : ControllerBase
 {
@@ -44,6 +47,17 @@ public class ProjectController : ControllerBase
         {
             return NotFound("Project not found.");
         }
+
+        return Ok(result);
+    }
+
+    // POST: api/<ProjectController>
+    [HttpPost]
+    [ProducesResponseType(typeof(ProjectDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(IDictionary<string,string[]>), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> Create(CreateProjectCommand command)
+    {
+        var result = await _mediator.Send(command);
 
         return Ok(result);
     }
