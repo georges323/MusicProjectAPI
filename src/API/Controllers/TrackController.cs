@@ -2,10 +2,12 @@
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebAPI.Filters;
 
 namespace WebAPI.Controllers;
 
 [Route("api/[controller]")]
+[ApiException]
 [ApiController]
 public class TrackController : ControllerBase
 {
