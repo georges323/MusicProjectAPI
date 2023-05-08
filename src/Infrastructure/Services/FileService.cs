@@ -48,7 +48,7 @@ public class FileService : IFileService
         }
         catch (AmazonS3Exception e)
         {
-            throw;
+            throw new Exception(e.Message);
         }
     }
 
@@ -65,7 +65,16 @@ public class FileService : IFileService
                 Expires = DateTime.UtcNow.AddHours(duration)
             };
 
-            var urlString = _s3Client.GetPreSignedURL(getRequest);
+            string urlString;
+
+            try
+            {
+                urlString = _s3Client.GetPreSignedURL(getRequest);
+            }
+            catch (AmazonS3Exception e)
+            {
+                throw new Exception(e.Message);
+            }
 
             objectKeysToUrl.Add(objectKey, urlString);
         }
