@@ -45,3 +45,5 @@ ApplicationInsights.config
 
 
 /node_modules
+
+*.json
