@@ -13,7 +13,8 @@ public class FileService : IFileService
 {
     private readonly string? AWS_ACCESS_KEY;
     private readonly string? AWS_SECRET_KEY;
-    private readonly string? BUCKET_NAME;
+    private readonly string? AWS_BUCKET_NAME;
+    private readonly string? AWS_REGION;
 
     private static IAmazonS3 _s3Client;
 
@@ -21,12 +22,13 @@ public class FileService : IFileService
     {     
         AWS_ACCESS_KEY = configuration?.GetSection("AWS")["AccessKey"];
         AWS_SECRET_KEY = configuration?.GetSection("AWS")["SecretKey"];
-        BUCKET_NAME = configuration?.GetSection("AWS")["BucketName"];
+        AWS_BUCKET_NAME = configuration?.GetSection("AWS")["BucketName"];
+        AWS_REGION = configuration?.GetSection("AWS")["Region"];
 
         var credentials = new BasicAWSCredentials(AWS_ACCESS_KEY, AWS_SECRET_KEY);
         var config = new AmazonS3Config
         {
-            RegionEndpoint = RegionEndpoint.USWest2
+            RegionEndpoint = RegionEndpoint.GetBySystemName(AWS_REGION)
         };
 
         _s3Client = new AmazonS3Client(credentials, config);
@@ -40,7 +42,7 @@ public class FileService : IFileService
             {
                 InputStream = file.OpenReadStream(),
                 Key = file.FileName,
-                BucketName = BUCKET_NAME
+                BucketName = AWS_BUCKET_NAME
             };
 
             var fileTransferUtility = new TransferUtility(_s3Client);
@@ -60,7 +62,7 @@ public class FileService : IFileService
         {
             GetPreSignedUrlRequest getRequest = new GetPreSignedUrlRequest
             {
-                BucketName = BUCKET_NAME,
+                BucketName = AWS_BUCKET_NAME,
                 Key = objectKey,
                 Expires = DateTime.UtcNow.AddHours(duration)
             };

@@ -13,6 +13,7 @@
   "AWS": {
     "AccessKey": "ACCESSKEY",
     "SecretKey": "SECRETKEY",
-    "BucketName": "BUCKETNAME"
+    "BucketName": "BUCKETNAME",
+    "Region": "REGION"
   }
 }
