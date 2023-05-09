@@ -1,0 +1,19 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  },
+  "AllowedHosts": "*",
+  "ConnectionStrings": {
+    "DefaultConnection": "User ID=USERID;Password=PASSWORD;Host=HOST;Port=PORT;Database=DATABASENAME;"
+  },
+  "AWS": {
+    "AccessKey": "ACCESSKEY",
+    "SecretKey": "SECRETKEY",
+    "BucketName": "BUCKETNAME",
+    "Region": "REGION"
+  }
+}

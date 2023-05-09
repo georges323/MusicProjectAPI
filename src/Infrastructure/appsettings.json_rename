@@ -8,6 +8,6 @@
   },
   "AllowedHosts": "*",
   "ConnectionStrings": {
-    "DefaultConnection": "User ID=postgres;Password=password;Host=localhost;Port=5433;Database=MusicDB;"
+    "DefaultConnection": "User ID=USERID;Password=PASSWORD;Host=HOST;Port=PORT;Database=DATABASENAME;"
   }
 }

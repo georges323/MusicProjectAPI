@@ -1,6 +1,6 @@
-﻿using Application.Tracks.Queries;
+﻿using Application.Tracks.Commands;
+using Application.Tracks.Queries;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Filters;
 
@@ -30,6 +30,15 @@ public class TrackController : ControllerBase
         {
             return NotFound("Tracks not found.");
         }
+
+        return Ok(result);
+    }
+
+    [HttpPost("{projectId}")]
+    [ProducesResponseType(typeof(List<TrackDto>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> Create(IFormFile file, [FromRoute] Guid projectId)
+    {
+        var result = await _mediator.Send(new CreateTrackCommand(file, projectId));
 
         return Ok(result);
     }
