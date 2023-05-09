@@ -9,10 +9,12 @@ public record GetTracksQuery(Guid ProjectId) : IRequest<List<TrackDto>>;
 public class GetTracksQueryHandler : IRequestHandler<GetTracksQuery, List<TrackDto>>
 {
     private readonly IApplicationDbContext _context;
+    private readonly IFileService _fileService;
 
-    public GetTracksQueryHandler(IApplicationDbContext context)
+    public GetTracksQueryHandler(IApplicationDbContext context, IFileService fileService)
     {
         _context = context;
+        _fileService = fileService;
     }
 
     public async Task<List<TrackDto>> Handle(GetTracksQuery request, CancellationToken cancellationToken)
@@ -21,11 +23,17 @@ public class GetTracksQueryHandler : IRequestHandler<GetTracksQuery, List<TrackD
             .Where(t => t.ProjectId == request.ProjectId)
             .ToListAsync();
 
+        var fileNames = tracksList
+            .Select(t => t.ImageUrl)
+            .ToList();
+
+        var trackNamesToUrl = _fileService.GetFilesUrls(fileNames, 5);
+
         return tracksList.Select(t => new TrackDto
         {
             Id = t.Id,
             Name = t.Name,
-            ImageUrl = t.ImageUrl,
+            ImageUrl = trackNamesToUrl.TryGetValue(t.ImageUrl, out string imageUrl) ? imageUrl : null,
             ProjectId = t.ProjectId
         }).ToList();
     }
