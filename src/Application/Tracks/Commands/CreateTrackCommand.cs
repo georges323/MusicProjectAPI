@@ -20,13 +20,13 @@ public class CreateTrackCommandHandler : IRequestHandler<CreateTrackCommand, Tra
     }
     public async Task<TrackDto> Handle(CreateTrackCommand request, CancellationToken cancellationToken)
     {
-        await _fileService.UploadFile(request.File);
+        var storageKey = await _fileService.UploadFile(request.File);
 
         var entity = new Track
         {
             Id = Guid.NewGuid(),
-            Name = request.File.FileName.Split(".")[0],
-            ImageUrl = request.File.FileName,
+            Name = request.File.FileName,
+            StorageKey = storageKey,
             ProjectId = request.ProjectId,
         };
 
@@ -38,7 +38,7 @@ public class CreateTrackCommandHandler : IRequestHandler<CreateTrackCommand, Tra
         {
             Id = entity.Id,
             Name = entity.Name,
-            ImageUrl = entity.ImageUrl,
+            WavUrl = entity.StorageKey,
             ProjectId = entity.ProjectId,
         };
     }

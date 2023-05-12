@@ -34,14 +34,16 @@ public class FileService : IFileService
         _s3Client = new AmazonS3Client(credentials, config);
     }
 
-    public async Task UploadFile(IFormFile file)
+    public async Task<string> UploadFile(IFormFile file)
     {
+        var storageKey = CreateStorageKey(file.FileName);
+
         try
         {
             var uploadRequest = new TransferUtilityUploadRequest
             {
                 InputStream = file.OpenReadStream(),
-                Key = file.FileName,
+                Key = storageKey,
                 BucketName = AWS_BUCKET_NAME
             };
 
@@ -52,6 +54,8 @@ public class FileService : IFileService
         {
             throw new Exception(e.Message);
         }
+
+        return storageKey;
     }
 
     public Dictionary<string, string> GetFilesUrls(List<string> objectKeys, double duration)
@@ -82,5 +86,12 @@ public class FileService : IFileService
         }
 
         return objectKeysToUrl;
+    }
+
+    private string CreateStorageKey(string fileName)
+    {
+        var fileId = Guid.NewGuid();
+
+        return $"{fileId}-{fileName}";
     }
 }

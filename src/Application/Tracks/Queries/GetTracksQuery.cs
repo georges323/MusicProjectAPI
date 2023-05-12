@@ -24,7 +24,7 @@ public class GetTracksQueryHandler : IRequestHandler<GetTracksQuery, List<TrackD
             .ToListAsync();
 
         var fileNames = tracksList
-            .Select(t => t.ImageUrl)
+            .Select(t => t.StorageKey)
             .ToList();
 
         var trackNamesToUrl = _fileService.GetFilesUrls(fileNames, 5);
@@ -33,7 +33,7 @@ public class GetTracksQueryHandler : IRequestHandler<GetTracksQuery, List<TrackD
         {
             Id = t.Id,
             Name = t.Name,
-            ImageUrl = trackNamesToUrl.TryGetValue(t.ImageUrl, out string imageUrl) ? imageUrl : null,
+            WavUrl = trackNamesToUrl.TryGetValue(t.StorageKey, out string wavUrl) ? wavUrl : null,
             ProjectId = t.ProjectId
         }).ToList();
     }
