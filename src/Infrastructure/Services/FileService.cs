@@ -58,6 +58,18 @@ public class FileService : IFileService
         return storageKey;
     }
 
+    public async Task DeleteFileAsync(string storageKey)
+    {
+        try
+        {
+            await _s3Client.DeleteObjectAsync(AWS_BUCKET_NAME, storageKey);
+        }
+        catch (AmazonS3Exception e)
+        {
+            throw new Exception(e.Message);
+        }
+    }
+
     public Dictionary<string, string> GetFilesUrls(List<string> objectKeys, double duration)
     {
         Dictionary<string, string> objectKeysToUrl = new();
