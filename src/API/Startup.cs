@@ -48,5 +48,13 @@ public class Startup
         {
             endpoints.MapControllers();
         });
+
+        app.UseSpa(builder =>
+        {
+            if (env.IsDevelopment())
+            {
+                builder.UseProxyToSpaDevelopmentServer("http://127.0.0.1:5173/");
+            }
+        });
     }
 }
