@@ -1,20 +1,12 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { Ref, ref, onMounted } from 'vue'
+import { IProject, Project } from '../api'
 
-interface Project {
-    id: number
-    name: string
-}
+const projects: Ref<IProject[]> = ref([]);
 
-let projects = reactive<Project[]>([
-    {
-        id: 1,
-        name: "Drowning"
-    },
-    {
-        id: 2,
-        name: "Water st"
-    }])
+onMounted(async () => {
+  projects.value = await Project.getProjects();
+});
 </script>
 
 <template>
@@ -31,10 +23,10 @@ let projects = reactive<Project[]>([
                     Add
                 </button>
             </div>
-            <div className="flex flex-col mt-8">
-                <div v-for="project in projects" 
-                    :key="project.id"
-                    class="text-xl border rounded-xl border-slate-900 py-6 px-4 my-2">
+            <div class="flex flex-col mt-8">
+                <div v-for="project in projects"
+                    class="text-xl border rounded-xl border-slate-900 py-6 px-4 my-2"
+                    :key="project.id">
                     {{ project.name }}
                 </div>
             </div>
