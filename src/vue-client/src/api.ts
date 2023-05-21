@@ -8,7 +8,7 @@ export interface IProject {
 }
 
 const axiosInstance = axios.create({
-    baseURL: "http://jsonplaceholder.typicode.com/",    
+    baseURL: "http://localhost:5000/api/",    
 })
 
 const responseBody = (response: AxiosResponse) => response.data
@@ -18,5 +18,5 @@ const requests = {
 }
 
 export const Project = {
-    getProjects: () => requests.get('posts') as Promise<IProject[]>
+    getProjects: () => requests.get('project') as Promise<IProject[]>
 }
