@@ -4,6 +4,6 @@ Musicol is a web application designed to help musicians organize individual trac
 
 ## Tech stack
 
-Database - MySQL, AWS S3
-Backend - . NET Core, .NET 7.0, Entity framework
-Frontend - Vue 3, Typescript
+- Database - MySQL, AWS S3
+- Backend - . NET Core, .NET 7.0, Entity framework
+- Frontend - Vue 3, Typescript
