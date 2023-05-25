@@ -15,6 +15,7 @@ public class Startup
     }
 
     public IConfiguration Configuration { get; }
+    private readonly string PolicyName = "VueCorsPolicy";
 
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
@@ -25,6 +26,13 @@ public class Startup
         services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "MusicProjectAPI", Version = "v1" });
+        });
+        services.AddCors(options =>
+        {
+            options.AddPolicy(PolicyName, builder =>
+            {
+                builder.WithOrigins("http://localhost:5173", "http://localhost:5000");
+            });
         });
     }
 
@@ -37,7 +45,7 @@ public class Startup
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MusicProjectAPI v1"));
         }
-
+        app.UseCors(PolicyName);
         app.UseHttpsRedirection();
 
         app.UseRouting();
