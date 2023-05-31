@@ -1,10 +1,17 @@
 import axios, { AxiosResponse } from "axios"
 
 export interface IProject {
-    id: number
+    id: string
     name: string
     bpm: number
     timeSig: string
+}
+
+export interface ITrack {
+    id: string
+    name: string
+    imageUrl: string
+    projectId: string
 }
 
 const axiosInstance = axios.create({
@@ -19,4 +26,8 @@ const requests = {
 
 export const Project = {
     getProjects: () => requests.get('project') as Promise<IProject[]>
+}
+
+export const Track = {
+    getTracks: (projectId: string) => requests.get(`track/${projectId}`) as Promise<ITrack[]>
 }

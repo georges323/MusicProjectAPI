@@ -7,6 +7,10 @@ const projects: Ref<IProject[]> = ref([]);
 onMounted(async () => {
   projects.value = await Project.getProjects();
 });
+
+const trackUrl = (projectId: string) => {
+    return `/tracks/${projectId}`;
+}
 </script>
 
 <template>
@@ -24,11 +28,12 @@ onMounted(async () => {
                 </button>
             </div>
             <div class="flex flex-col mt-8">
-                <div v-for="project in projects"
+                <router-link v-for="project in projects"
                     class="text-xl border rounded-xl border-slate-900 py-6 px-4 my-2"
-                    :key="project.id">
+                    :key="project.id"
+                    :to=trackUrl(project.id)>
                     {{ project.name }}
-                </div>
+                </router-link>
             </div>
         </div>
     </div>

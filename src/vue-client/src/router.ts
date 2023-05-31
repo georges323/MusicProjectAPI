@@ -1,12 +1,20 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import App from './App.vue'
+import Projects from './components/Projects.vue'
+import Tracks from './components/Tracks.vue'
 
 export default createRouter({
   history: createWebHistory(),
   routes: [
     {
       path: '/',
-      component: App,
+      name: 'Projects',
+      component: Projects,
+    },
+    {
+      path: '/tracks/:projectId',
+      name: 'Tracks',
+      component: Tracks,
+      props: true
     }
   ],
 })
