@@ -4,8 +4,12 @@ import { RouterView } from 'vue-router';
 </script>
 
 <template>
-  <main>
+  <VApp>
     <Navbar />
-    <RouterView />
-  </main>
+    <VMain class="d-flex justify-center mb-6 w-20">
+      <div class="w-50">
+        <RouterView />
+      </div>
+    </VMain>
+  </VApp>
 </template>

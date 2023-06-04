@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { Ref, ref, onBeforeMount } from 'vue';
 import { IProject, Project } from '../api';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const projects: Ref<IProject[]> = ref([]);
 
 onBeforeMount(async () => {
@@ -10,27 +12,29 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-    <div class="flex h-screen justify-center p-5">
-        <div class="h-full w-full md:max-w-2xl">
-            <div class="flex gap-3">
-                <p class="text-3xl font-bold">
-                    Projects
-                </p>
-                <button 
-                    class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-3 py-1 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 mt-2 ease-linear transition-all duration-150"
-                    type="button"
-                >
+    <VContainer>
+        <VRow class="flex-nowrap mb-2">
+            <VCol class="flex-grow-1 flex-shrink-0">
+                <h2>Projects</h2>
+            </VCol>
+            <VCol cols="1">
+                <VBtn :elevation="1" :border="true">
                     Add
-                </button>
-            </div>
-            <div class="flex flex-col mt-8">
-                <RouterLink v-for="project in projects"
-                    class="text-xl border rounded-xl border-slate-900 py-6 px-4 my-2"
-                    :key="project.id"
-                    :to="`/tracks/${project.id}`">
-                    {{ project.name }}
-                </RouterLink>
-            </div>
-        </div>
-    </div>
+                    <VIcon end icon="mdi-plus" class="pr-2" />
+                </VBtn>
+            </VCol>
+        </VRow>
+        <VList lines="one">
+            <VListItem
+                v-for="project in projects"
+                :key="project.id"
+                :title="project.name"
+                @click="router.push(`/tracks/${project.id}`)"
+                class="ma-1 pb-5 pt-5"
+                :border="true"
+                :elevation="2"
+                :rounded="true"
+            ></VListItem>
+        </VList>
+    </VContainer>
 </template>
