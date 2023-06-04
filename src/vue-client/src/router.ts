@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Projects from './components/Projects.vue'
-import Tracks from './components/Tracks.vue'
+import ProjectsView from './views/ProjectsView.vue'
+import TracksView from './views/TracksView.vue'
+import NotFoundView from './views/NotFoundView.vue'
 
 export default createRouter({
   history: createWebHistory(),
@@ -8,13 +9,18 @@ export default createRouter({
     {
       path: '/',
       name: 'Projects',
-      component: Projects,
+      component: ProjectsView,
     },
     {
       path: '/tracks/:projectId',
       name: 'Tracks',
-      component: Tracks,
+      component: TracksView,
       props: true
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: "NotFound",
+      component: NotFoundView
     }
   ],
 })

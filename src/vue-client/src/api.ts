@@ -3,6 +3,9 @@ import axios, { AxiosResponse } from "axios"
 export interface IProject {
     id: string
     name: string
+}
+
+export interface IProjectMetaData extends IProject {
     bpm: number
     timeSig: string
 }
@@ -25,7 +28,8 @@ const requests = {
 }
 
 export const Project = {
-    getProjects: () => requests.get('project') as Promise<IProject[]>
+    getProjects: () => requests.get('project') as Promise<IProject[]>,
+    getProject: (projectId: string) => requests.get(`project/${projectId}`) as Promise<IProjectMetaData>
 }
 
 export const Track = {

@@ -1,16 +1,12 @@
 <script setup lang="ts">
-import { Ref, ref, onMounted } from 'vue'
-import { IProject, Project } from '../api'
+import { Ref, ref, onBeforeMount } from 'vue';
+import { IProject, Project } from '../api';
 
 const projects: Ref<IProject[]> = ref([]);
 
-onMounted(async () => {
+onBeforeMount(async () => {
   projects.value = await Project.getProjects();
 });
-
-const trackUrl = (projectId: string) => {
-    return `/tracks/${projectId}`;
-}
 </script>
 
 <template>
@@ -28,12 +24,12 @@ const trackUrl = (projectId: string) => {
                 </button>
             </div>
             <div class="flex flex-col mt-8">
-                <router-link v-for="project in projects"
+                <RouterLink v-for="project in projects"
                     class="text-xl border rounded-xl border-slate-900 py-6 px-4 my-2"
                     :key="project.id"
-                    :to=trackUrl(project.id)>
+                    :to="`/tracks/${project.id}`">
                     {{ project.name }}
-                </router-link>
+                </RouterLink>
             </div>
         </div>
     </div>
