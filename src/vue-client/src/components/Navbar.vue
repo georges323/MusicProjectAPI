@@ -1,11 +1,19 @@
-<script setup lang="ts">
+ <script setup lang="ts">
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 </script>
 
 <template>
-    <nav class="flex items-center justify-between p-4 bg-gray-900 text-white">
-        <div class="text-2xl font-bold">Musicol</div>
-        <div class="px-4 py-2 focus:bg-gray-100">
-            User Info
+    <VAppBar :elevation="2" rounded>
+        <VAppBarTitle @click="router.push('/')">
+            Musicol
+        </VAppBarTitle>
+        <VSpacer />
+        <div class="pr-4">
+            <VAvatar color="info">
+                <VIcon icon="mdi-account-circle" />
+            </VAvatar>
         </div>
-    </nav>
+    </VAppBar>
 </template>

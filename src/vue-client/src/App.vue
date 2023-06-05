@@ -1,9 +1,15 @@
 <script setup lang="ts">
 import Navbar from './components/Navbar.vue';
-import Projects from './components/Projects.vue';
+import { RouterView } from 'vue-router';
 </script>
 
 <template>
-  <Navbar />
-  <Projects />
+  <VApp>
+    <Navbar />
+    <VMain class="d-flex justify-center mb-6 w-20">
+      <div class="w-50">
+        <RouterView />
+      </div>
+    </VMain>
+  </VApp>
 </template>

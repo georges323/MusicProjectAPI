@@ -23,18 +23,26 @@ public class GetTracksQueryHandler : IRequestHandler<GetTracksQuery, List<TrackD
             .Where(t => t.ProjectId == request.ProjectId)
             .ToListAsync();
 
-        var fileNames = tracksList
+        var storageKeys = tracksList
+            .Where(t => t.StorageKey != null)
             .Select(t => t.StorageKey)
             .ToList();
 
-        var trackNamesToUrl = _fileService.GetFilesUrls(fileNames, 5);
+        var storageKeysToUrl = _fileService.GetFilesUrls(storageKeys, 5);
 
-        return tracksList.Select(t => new TrackDto
+         return tracksList.Select(t => new TrackDto
         {
             Id = t.Id,
             Name = t.Name,
-            WavUrl = trackNamesToUrl.TryGetValue(t.StorageKey, out string wavUrl) ? wavUrl : null,
+            WavUrl = GetUrlFromDictionary(t.StorageKey, storageKeysToUrl),
             ProjectId = t.ProjectId
         }).ToList();
+    }
+
+    private string? GetUrlFromDictionary(string? storageKey, Dictionary<string,string> storageKeysToUrl)
+    {
+        if (storageKey == null) return null;
+
+        return storageKeysToUrl.TryGetValue(storageKey, out string wavUrl) ? wavUrl : null;
     }
 }

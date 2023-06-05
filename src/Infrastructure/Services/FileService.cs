@@ -1,4 +1,4 @@
-using Amazon;
+ using Amazon;
 using Amazon.Runtime;
 using Amazon.S3;
 using Amazon.S3.Model;
@@ -58,16 +58,16 @@ public class FileService : IFileService
         return storageKey;
     }
 
-    public Dictionary<string, string> GetFilesUrls(List<string> objectKeys, double duration)
+    public Dictionary<string, string> GetFilesUrls(List<string> storageKeys, double duration)
     {
         Dictionary<string, string> objectKeysToUrl = new();
 
-        foreach (var objectKey in objectKeys)
+        foreach (var storageKey in storageKeys)
         {
             GetPreSignedUrlRequest getRequest = new GetPreSignedUrlRequest
             {
                 BucketName = AWS_BUCKET_NAME,
-                Key = objectKey,
+                Key = storageKey,
                 Expires = DateTime.UtcNow.AddHours(duration)
             };
 
@@ -82,7 +82,7 @@ public class FileService : IFileService
                 throw new Exception(e.Message);
             }
 
-            objectKeysToUrl.Add(objectKey, urlString);
+            objectKeysToUrl.Add(storageKey, urlString);
         }
 
         return objectKeysToUrl;
