@@ -1,6 +1,7 @@
 ﻿using Application.Projects.Commands;
 using Application.Projects.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Filters;
@@ -21,6 +22,7 @@ public class ProjectController : ControllerBase
 
     // GET: api/<ProjectController>
     [HttpGet]
+    [Authorize]
     [ProducesResponseType(typeof(List<ProjectDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Get()
