@@ -6,14 +6,9 @@ const router = useRouter();
 
 <template>
     <VAppBar :elevation="2" rounded>
-        <VAppBarTitle @click="router.push('/')">
+        <VAppBarTitle @click="router.push('/projects')">
             Musicol
         </VAppBarTitle>
         <VSpacer />
-        <div class="pr-4">
-            <VAvatar color="info">
-                <VIcon icon="mdi-account-circle" />
-            </VAvatar>
-        </div>
     </VAppBar>
 </template>
