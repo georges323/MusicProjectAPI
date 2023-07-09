@@ -1,24 +1,18 @@
-using Microsoft.AspNetCore.Authentication.Google;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
-using System.Diagnostics;
-using System.Security.Claims;
 
 namespace WebAPI;
 
 public class Startup
 {
+    public IConfiguration Configuration { get; }
+    private readonly string PolicyName = "VueCorsPolicy";
+    
     public Startup(IConfiguration configuration)
     {
         Configuration = configuration;
     }
 
-    public IConfiguration Configuration { get; }
-    private readonly string PolicyName = "VueCorsPolicy";
 
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
@@ -38,12 +32,20 @@ public class Startup
             });
         });
 
-        services.AddAuthentication()
-            .AddGoogle(googleOptions =>
-            {
-                googleOptions.ClientId = Configuration.GetValue<string>("GoogleClientId");
-                googleOptions.ClientSecret = Configuration.GetValue<string>("GoogleClientSecret");
-            });
+        var clientId = Configuration.GetValue<string>("GoogleClientId");
+        services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        })
+        .AddJwtBearer(o =>
+        {
+            o.SecurityTokenValidators.Clear();
+            o.SecurityTokenValidators.Add(new GoogleTokenValidator(clientId));
+        });
+
+        services.AddAuthorization();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,7 +61,7 @@ public class Startup
         app.UseHttpsRedirection();
 
         app.UseRouting();
-
+        app.UseAuthentication();
         app.UseAuthorization();
 
         app.UseEndpoints(endpoints =>

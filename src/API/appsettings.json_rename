@@ -15,5 +15,9 @@
     "SecretKey": "SECRETKEY",
     "BucketName": "BUCKETNAME",
     "Region": "REGION"
+  },
+  "Google" : {
+    "ClientId": "CLIENTID",
+    "ClientSecret": "CLIENTSECRET"
   }
 }

@@ -9,6 +9,7 @@ using WebAPI.Filters;
 namespace WebAPI.Controllers;
 
 [Route("api/[controller]")]
+[Authorize]
 [ApiException]
 [ApiController]
 public class ProjectController : ControllerBase
@@ -22,11 +23,13 @@ public class ProjectController : ControllerBase
 
     // GET: api/<ProjectController>
     [HttpGet]
-    [Authorize]
     [ProducesResponseType(typeof(List<ProjectDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Get()
     {
+        // Will be used
+        var sub = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "sub")?.Value;
+
         var result = await _mediator.Send(new GetProjectsQuery());
 
         if (!result.Any())
